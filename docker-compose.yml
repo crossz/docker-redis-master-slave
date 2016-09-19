@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  master:
+    build: 
+      context: .
+      args: 
+        - PW=12345678
+        - CLIENTPORT=6479
+        - MASTERPORT=
+        - MASTERHOST=localhost
+    network_mode: "host"
+
+  slave:
+    build: 
+      context: .
+      args: 
+        - PW=12345678
+        - CLIENTPORT=6579
+        - MASTERPORT=6479
+        - MASTERHOST=localhost
+    network_mode: "host"
+
+
+  sentinel:
+    build: 
+      context: sentinel
+      args: 
+        - PW=12345678
+        - QUORUM=1
+    environment:
+      - CLIENTPORT=26479
+      - MASTERPORT=6479
+      - MASTERHOST=localhost
+      - SENTINEL_DOWN_AFTER=5000
+      - SENTINEL_FAILOVER=5000
+    network_mode: "host"
+
