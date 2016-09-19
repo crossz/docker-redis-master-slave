@@ -5,38 +5,38 @@ services:
     build: 
       context: .
       args: 
-        - PW=12345678
+        - REQUIREPASS=12345678
         - CLIENTPORT=6479
         - MASTERPORT=
         - MASTERHOST=localhost
+    environment:
+      - REQUIREPASS=12345678
+      - CLIENTPORT=6479
+      - MASTERPORT=
+      - MASTERHOST=localhost
     volumes:
       - "/tmp/6479:/data"
     network_mode: "host"
+    image: crossz/redis-sentinel-distributed
 
   slave:
     build: 
       context: .
       args: 
-        - PW=12345678
+        - REQUIREPASS=12345678
         - CLIENTPORT=6579
         - MASTERPORT=6479
         - MASTERHOST=localhost
+    environment:
+      - REQUIREPASS=12345678
+      - CLIENTPORT=6579
+      - MASTERPORT=6479
+      - MASTERHOST=localhost
     volumes:
       - "/tmp/6579:/data"
     network_mode: "host"
+    image: crossz/redis-sentinel-distributed
 
 
-  sentinel:
-    build: 
-      context: sentinel
-      args: 
-        - PW=12345678
-        - QUORUM=1
-    environment:
-      - CLIENTPORT=26479
-      - MASTERPORT=6479
-      - MASTERHOST=localhost
-      - SENTINEL_DOWN_AFTER=5000
-      - SENTINEL_FAILOVER=5000
-    network_mode: "host"
+
 
