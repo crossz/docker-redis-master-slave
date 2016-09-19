@@ -9,6 +9,8 @@ services:
         - CLIENTPORT=6479
         - MASTERPORT=
         - MASTERHOST=localhost
+    volumes:
+      - "/tmp/6479:/data"
     network_mode: "host"
 
   slave:
@@ -19,6 +21,8 @@ services:
         - CLIENTPORT=6579
         - MASTERPORT=6479
         - MASTERHOST=localhost
+    volumes:
+      - "/tmp/6579:/data"
     network_mode: "host"
 
 
