@@ -2,13 +2,7 @@ version: '2'
 
 services:
   master:
-    build: 
-      context: .
-#      args: 
-#        - REQUIREPASS=12345678
-#        - CLIENTPORT=6479
-#        - MASTERPORT=
-#        - MASTERHOST=localhost
+    build: .
     environment:
       - REQUIREPASS=12345678
       - CLIENTPORT=6479
@@ -20,13 +14,7 @@ services:
     image: crossz/redis-sentinel-distributed
 
   slave:
-    build: 
-      context: .
-#      args: 
-#        - REQUIREPASS=12345678
-#        - CLIENTPORT=6579
-#        - MASTERPORT=6479
-#        - MASTERHOST=localhost
+    build: .
     environment:
       - REQUIREPASS=12345678
       - CLIENTPORT=6579
