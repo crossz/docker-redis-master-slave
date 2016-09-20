@@ -4,11 +4,11 @@ services:
   master:
     build: 
       context: .
-      args: 
-        - REQUIREPASS=12345678
-        - CLIENTPORT=6479
-        - MASTERPORT=
-        - MASTERHOST=localhost
+#      args: 
+#        - REQUIREPASS=12345678
+#        - CLIENTPORT=6479
+#        - MASTERPORT=
+#        - MASTERHOST=localhost
     environment:
       - REQUIREPASS=12345678
       - CLIENTPORT=6479
@@ -22,11 +22,11 @@ services:
   slave:
     build: 
       context: .
-      args: 
-        - REQUIREPASS=12345678
-        - CLIENTPORT=6579
-        - MASTERPORT=6479
-        - MASTERHOST=localhost
+#      args: 
+#        - REQUIREPASS=12345678
+#        - CLIENTPORT=6579
+#        - MASTERPORT=6479
+#        - MASTERHOST=localhost
     environment:
       - REQUIREPASS=12345678
       - CLIENTPORT=6579
@@ -36,7 +36,4 @@ services:
       - "/tmp/6579:/data"
     network_mode: "host"
     image: crossz/redis-sentinel-distributed
-
-
-
 

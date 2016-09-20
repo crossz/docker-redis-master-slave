@@ -2,25 +2,20 @@ FROM redis:3-alpine
 
 MAINTAINER Crossz (twitter.com/zhengxin)
 
-ARG REQUIREPASS=123456
-ARG CLIENTPORT=6379
-ARG MASTERPORT=6479
-ARG MASTERHOST=localhost
-
-ENV REQUIREPASS $REQUIREPASS
-ENV CLIENTPORT $CLIENTPORT
-ENV MASTERPORT $MASTERPORT
-ENV MASTERHOST $MASTERHOST
+ENV REQUIREPASS 123456
+ENV CLIENTPORT 6379
+ENV MASTERPORT 6479
+ENV MASTERHOST localhost
 
 
 ## redis.conf: $CLIENTPORT also assigned here
 ADD redis.conf /etc/redis.conf
+RUN chown redis:redis /etc/redis.conf
 
+EXPOSE $CLIENTPORT
 
 ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
-
-EXPOSE $CLIENTPORT
 
 CMD [ "redis-server","/etc/redis.conf" ]
 
