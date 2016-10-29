@@ -1,13 +1,17 @@
-# Redis-Sentinel Cluster Distributed
+# Image for Redis Distributed Nodes only (no sentinel)
 
 This is the git for a docker image on docker hub. https://hub.docker.com/r/crossz/redis-sentinel-distributed/
+
+The sentinel image/repo is here: https://hub.docker.com/r/crossz/sentinel-redis-distributed/
+
+----
 
 The difference from https://github.com/crossz/docker-redis-sentinel-compose is that 
 
 1. Distributed, i.e. this is used to replace those redis nodes installed on separted nodes, while not on one local node for testing purpose or docker swarm. 
 2. All parameters are assigned in the docker-compose.yml.
 
-
+----
 ## Docker Compose template of Redis cluster
 
 The tempalte defines the topology of the Redis cluster
@@ -17,40 +21,28 @@ version: '2'
 
 services:
   master:
-    build: 
-      context: .
-      args: 
-        - PW=12345678
-        - CLIENTPORT=6479
-        - MASTERPORT=
-        - MASTERHOST=localhost
+    build: .
+    environment:
+      - REQUIREPASS=12345678
+      - CLIENTPORT=6479
+      - MASTERPORT=
+      - MASTERHOST=localhost
+    volumes:
+      - "/tmp/6479:/data"
     network_mode: "host"
+    image: crossz/redis-sentinel-distributed
 
   slave:
-    build: 
-      context: .
-      args: 
-        - PW=12345678
-        - CLIENTPORT=6579
-        - MASTERPORT=6479
-        - MASTERHOST=localhost
-    network_mode: "host"
-
-
-  sentinel:
-    build: 
-      context: sentinel
-      args: 
-        - PW=12345678
-        - QUORUM=1
+    build: .
     environment:
-      - CLIENTPORT=26479
+      - REQUIREPASS=12345678
+      - CLIENTPORT=6579
       - MASTERPORT=6479
       - MASTERHOST=localhost
-      - SENTINEL_DOWN_AFTER=5000
-      - SENTINEL_FAILOVER=5000
+    volumes:
+      - "/tmp/6579:/data"
     network_mode: "host"
-
+    image: crossz/redis-sentinel-distributed
 
 ```
 
