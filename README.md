@@ -1,6 +1,6 @@
 # Redis-Sentinel Cluster Distributed
 
-
+This is the git for a docker image on docker hub. https://hub.docker.com/r/crossz/redis-sentinel-distributed/
 
 The difference from https://github.com/crossz/docker-redis-sentinel-compose is that 
 
