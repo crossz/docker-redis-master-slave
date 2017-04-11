@@ -4,6 +4,7 @@ services:
   master:
     build: .
     environment:
+      - APPENDFSYNC=always
       - REQUIREPASS=12345678
       - CLIENTPORT=6479
       - MASTERPORT=
@@ -16,6 +17,7 @@ services:
   slave:
     build: .
     environment:
+      - APPENDFSYNC=always
       - REQUIREPASS=12345678
       - CLIENTPORT=6579
       - MASTERPORT=6479
