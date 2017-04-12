@@ -21,28 +21,30 @@ version: '2'
 
 services:
   master:
-    build: .
+    image: crossz/redis-sentinel-distributed
+    network_mode: "host"
     environment:
+      - APPENDFSYNC=everysec
       - REQUIREPASS=12345678
       - CLIENTPORT=6479
+      - CLIENTHOST=localhost
+      - MASTERHOST=
       - MASTERPORT=
-      - MASTERHOST=localhost
     volumes:
       - "/tmp/6479:/data"
-    network_mode: "host"
-    image: crossz/redis-sentinel-distributed
-
+      
   slave:
-    build: .
+    image: crossz/redis-sentinel-distributed
+    network_mode: "host"
     environment:
+      - APPENDFSYNC=everysec
       - REQUIREPASS=12345678
+      - CLIENTHOST=localhost
       - CLIENTPORT=6579
-      - MASTERPORT=6479
       - MASTERHOST=localhost
+      - MASTERPORT=6479
     volumes:
       - "/tmp/6579:/data"
-    network_mode: "host"
-    image: crossz/redis-sentinel-distributed
 
 ```
 
