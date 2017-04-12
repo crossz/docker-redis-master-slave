@@ -2,7 +2,7 @@
 set -ex
 
 ## from redis-3.2
-sed -i "s/bind 127.0.0.1/bind $MASTERHOST/g" /etc/redis.conf
+sed -i "s/bind 127.0.0.1/bind $CLIENTHOST/g" /etc/redis.conf
 
 ## redis port inside redis.conf
 sed -i "s/port 6379/port $CLIENTPORT/g" /etc/redis.conf
