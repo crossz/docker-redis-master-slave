@@ -51,6 +51,25 @@ services:
       - MASTERPORT=6479
     volumes:
       - "/tmp/6579:/data"
+      
+      
+  sentinel:
+    #network_mode: "host"
+    hostname: redis-sentinel
+    ports:
+      - 26479:26479
+    build: 
+      context: sentinel
+      args: 
+        - PW=12345678
+        - QUORUM=1
+    environment:
+      - CLIENTPORT=26479
+      - MASTERPORT=6479
+      - MASTERHOST=0.0.0.0
+      - SENTINEL_DOWN_AFTER=5000
+      - SENTINEL_FAILOVER=5000
+    
 
 ```
 
