@@ -17,31 +17,37 @@ The difference from https://github.com/crossz/docker-redis-sentinel-compose is t
 The tempalte defines the topology of the Redis cluster
 
 ```
-version: '2'
+version: '3.1'
 
 services:
   master:
     image: crossz/redis-sentinel-distributed
-    network_mode: "host"
+    #network_mode: "host"
+    hostname: redis-master
+    ports:
+      - 6479:6479
     environment:
       - APPENDFSYNC=everysec
       - REQUIREPASS=12345678
       - CLIENTPORT=6479
-      - CLIENTHOST=localhost
+      - CLIENTHOST=0.0.0.0
       - MASTERHOST=
       - MASTERPORT=
     volumes:
       - "/tmp/6479:/data"
-      
+
   slave:
     image: crossz/redis-sentinel-distributed
-    network_mode: "host"
+    #network_mode: "host"
+    hostname: redis-slave
+    ports:
+      - 6579:6579
     environment:
       - APPENDFSYNC=everysec
       - REQUIREPASS=12345678
-      - CLIENTHOST=localhost
+      - CLIENTHOST=0.0.0.0
       - CLIENTPORT=6579
-      - MASTERHOST=localhost
+      - MASTERHOST=0.0.0.0
       - MASTERPORT=6479
     volumes:
       - "/tmp/6579:/data"
